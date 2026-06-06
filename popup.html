@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitch Chat Translator</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Twitch Chat Translator</h1>
+    </header>
+
+    <label class="row switch-row">
+      <span>Включить перевод</span>
+      <input type="checkbox" id="enabled" />
+    </label>
+
+    <label class="row switch-row">
+      <span>Авто-перевод моих сообщений при Enter</span>
+      <input type="checkbox" id="translateOutgoing" />
+    </label>
+
+    <label class="row">
+      <span>Язык моих сообщений</span>
+      <select id="outgoingTarget">
+        <option value="auto">Авто (язык чата)</option>
+        <option value="en">English</option>
+        <option value="ru">Русский</option>
+        <option value="uk">Українська</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="pt">Português</option>
+        <option value="pl">Polski</option>
+        <option value="tr">Türkçe</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh">中文</option>
+      </select>
+    </label>
+
+    <p class="detected" id="detected">Язык чата: не определён</p>
+
+    <p class="hint">
+      <b>Ctrl + Enter</b> в поле чата — перевести сообщение прямо в поле (без
+      отправки), затем проверьте и нажмите Enter.
+    </p>
+
+    <label class="row">
+      <span>Язык перевода</span>
+      <select id="target">
+        <option value="ru">Русский</option>
+        <option value="en">English</option>
+        <option value="uk">Українська</option>
+        <option value="es">Español</option>
+        <option value="de">Deutsch</option>
+        <option value="fr">Français</option>
+        <option value="pt">Português</option>
+        <option value="pl">Polski</option>
+        <option value="tr">Türkçe</option>
+        <option value="ja">日本語</option>
+        <option value="ko">한국어</option>
+        <option value="zh">中文</option>
+      </select>
+    </label>
+
+    <label class="row">
+      <span>Сервис</span>
+      <select id="provider">
+        <option value="google_free">Google (без ключа)</option>
+        <option value="google_api">Google Cloud (ключ)</option>
+        <option value="deepl">DeepL (ключ)</option>
+      </select>
+    </label>
+
+    <label class="row column" id="keyRow" hidden>
+      <span>API-ключ</span>
+      <input type="password" id="apiKey" placeholder="Вставьте ключ" />
+    </label>
+
+    <p class="status" id="status"></p>
+  </body>
+  <script src="popup.js"></script>
+</html>

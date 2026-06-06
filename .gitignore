@@ -1,0 +1,9 @@
+# OS / editor
+Thumbs.db
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Архивы сборки расширения
+*.zip

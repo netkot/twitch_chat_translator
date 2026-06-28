@@ -1,0 +1,287 @@
+// Локализация интерфейса попапа. Своя система (а не chrome.i18n), потому что
+// нужен и авто-выбор по языку браузера, и РУЧНОЕ переключение на лету —
+// chrome.i18n жёстко привязан к языку браузера и не переключается во время работы.
+//
+// Основной язык и фолбэк — английский (en). Поддерживается 10 языков.
+// Подключается как обычный скрипт перед popup.js и кладёт API в window.TCT_I18N.
+
+(function () {
+  "use strict";
+
+  // Языки интерфейса в порядке отображения в селекторе (нативные названия).
+  const UI_LANGS = {
+    en: "English",
+    ru: "Русский",
+    uk: "Українська",
+    es: "Español",
+    de: "Deutsch",
+    fr: "Français",
+    pt: "Português",
+    pl: "Polski",
+    tr: "Türkçe",
+    zh: "中文",
+    ja: "日本語",
+    ko: "한국어",
+  };
+
+  const MESSAGES = {
+    en: {
+      enableTranslation: "Enable translation",
+      autoTranslateOutgoing: "Auto-translate my messages on Enter",
+      myMessagesLang: "My message language",
+      autoChatLang: "Auto (chat language)",
+      uiLang: "Interface language",
+      uiLangAuto: "Auto (browser)",
+      chatLangPrefix: "Chat language: ",
+      notDetected: "not detected",
+      hintHtml:
+        "<b>Ctrl + Enter</b> in the chat box — translate the message right in the field (without sending), then review and press Enter.",
+      translationLang: "Translation language",
+      service: "Service",
+      providerGoogleFree: "Google (no key)",
+      providerGoogleApi: "Google Cloud (key)",
+      providerDeepl: "DeepL (key)",
+      apiKey: "API key",
+      apiKeyPlaceholder: "Paste the key",
+      saved: "Saved",
+    },
+    ru: {
+      enableTranslation: "Включить перевод",
+      autoTranslateOutgoing: "Авто-перевод моих сообщений при Enter",
+      myMessagesLang: "Язык моих сообщений",
+      autoChatLang: "Авто (язык чата)",
+      uiLang: "Язык интерфейса",
+      uiLangAuto: "Авто (браузер)",
+      chatLangPrefix: "Язык чата: ",
+      notDetected: "не определён",
+      hintHtml:
+        "<b>Ctrl + Enter</b> в поле чата — перевести сообщение прямо в поле (без отправки), затем проверьте и нажмите Enter.",
+      translationLang: "Язык перевода",
+      service: "Сервис",
+      providerGoogleFree: "Google (без ключа)",
+      providerGoogleApi: "Google Cloud (ключ)",
+      providerDeepl: "DeepL (ключ)",
+      apiKey: "API-ключ",
+      apiKeyPlaceholder: "Вставьте ключ",
+      saved: "Сохранено",
+    },
+    uk: {
+      enableTranslation: "Увімкнути переклад",
+      autoTranslateOutgoing: "Авто-переклад моїх повідомлень при Enter",
+      myMessagesLang: "Мова моїх повідомлень",
+      autoChatLang: "Авто (мова чату)",
+      uiLang: "Мова інтерфейсу",
+      uiLangAuto: "Авто (браузер)",
+      chatLangPrefix: "Мова чату: ",
+      notDetected: "не визначено",
+      hintHtml:
+        "<b>Ctrl + Enter</b> у полі чату — перекласти повідомлення прямо в полі (без надсилання), потім перевірте та натисніть Enter.",
+      translationLang: "Мова перекладу",
+      service: "Сервіс",
+      providerGoogleFree: "Google (без ключа)",
+      providerGoogleApi: "Google Cloud (ключ)",
+      providerDeepl: "DeepL (ключ)",
+      apiKey: "API-ключ",
+      apiKeyPlaceholder: "Вставте ключ",
+      saved: "Збережено",
+    },
+    es: {
+      enableTranslation: "Activar traducción",
+      autoTranslateOutgoing: "Traducir mis mensajes automáticamente al pulsar Enter",
+      myMessagesLang: "Idioma de mis mensajes",
+      autoChatLang: "Auto (idioma del chat)",
+      uiLang: "Idioma de la interfaz",
+      uiLangAuto: "Auto (navegador)",
+      chatLangPrefix: "Idioma del chat: ",
+      notDetected: "no detectado",
+      hintHtml:
+        "<b>Ctrl + Enter</b> en el campo del chat: traduce el mensaje directamente en el campo (sin enviar); luego revísalo y pulsa Enter.",
+      translationLang: "Idioma de traducción",
+      service: "Servicio",
+      providerGoogleFree: "Google (sin clave)",
+      providerGoogleApi: "Google Cloud (clave)",
+      providerDeepl: "DeepL (clave)",
+      apiKey: "Clave API",
+      apiKeyPlaceholder: "Pega la clave",
+      saved: "Guardado",
+    },
+    de: {
+      enableTranslation: "Übersetzung aktivieren",
+      autoTranslateOutgoing: "Meine Nachrichten bei Enter automatisch übersetzen",
+      myMessagesLang: "Sprache meiner Nachrichten",
+      autoChatLang: "Auto (Chat-Sprache)",
+      uiLang: "Sprache der Oberfläche",
+      uiLangAuto: "Auto (Browser)",
+      chatLangPrefix: "Chat-Sprache: ",
+      notDetected: "nicht erkannt",
+      hintHtml:
+        "<b>Ctrl + Enter</b> im Chatfeld – übersetzt die Nachricht direkt im Feld (ohne zu senden); prüfe sie und drücke dann Enter.",
+      translationLang: "Übersetzungssprache",
+      service: "Dienst",
+      providerGoogleFree: "Google (ohne Schlüssel)",
+      providerGoogleApi: "Google Cloud (Schlüssel)",
+      providerDeepl: "DeepL (Schlüssel)",
+      apiKey: "API-Schlüssel",
+      apiKeyPlaceholder: "Schlüssel einfügen",
+      saved: "Gespeichert",
+    },
+    fr: {
+      enableTranslation: "Activer la traduction",
+      autoTranslateOutgoing: "Traduire mes messages automatiquement avec Entrée",
+      myMessagesLang: "Langue de mes messages",
+      autoChatLang: "Auto (langue du chat)",
+      uiLang: "Langue de l'interface",
+      uiLangAuto: "Auto (navigateur)",
+      chatLangPrefix: "Langue du chat : ",
+      notDetected: "non détectée",
+      hintHtml:
+        "<b>Ctrl + Entrée</b> dans le champ du chat — traduit le message directement dans le champ (sans l'envoyer) ; vérifiez-le puis appuyez sur Entrée.",
+      translationLang: "Langue de traduction",
+      service: "Service",
+      providerGoogleFree: "Google (sans clé)",
+      providerGoogleApi: "Google Cloud (clé)",
+      providerDeepl: "DeepL (clé)",
+      apiKey: "Clé API",
+      apiKeyPlaceholder: "Collez la clé",
+      saved: "Enregistré",
+    },
+    pt: {
+      enableTranslation: "Ativar tradução",
+      autoTranslateOutgoing: "Traduzir minhas mensagens automaticamente ao pressionar Enter",
+      myMessagesLang: "Idioma das minhas mensagens",
+      autoChatLang: "Auto (idioma do chat)",
+      uiLang: "Idioma da interface",
+      uiLangAuto: "Auto (navegador)",
+      chatLangPrefix: "Idioma do chat: ",
+      notDetected: "não detectado",
+      hintHtml:
+        "<b>Ctrl + Enter</b> no campo do chat — traduz a mensagem diretamente no campo (sem enviar); depois revise e pressione Enter.",
+      translationLang: "Idioma da tradução",
+      service: "Serviço",
+      providerGoogleFree: "Google (sem chave)",
+      providerGoogleApi: "Google Cloud (chave)",
+      providerDeepl: "DeepL (chave)",
+      apiKey: "Chave de API",
+      apiKeyPlaceholder: "Cole a chave",
+      saved: "Salvo",
+    },
+    pl: {
+      enableTranslation: "Włącz tłumaczenie",
+      autoTranslateOutgoing: "Automatycznie tłumacz moje wiadomości po naciśnięciu Enter",
+      myMessagesLang: "Język moich wiadomości",
+      autoChatLang: "Auto (język czatu)",
+      uiLang: "Język interfejsu",
+      uiLangAuto: "Auto (przeglądarka)",
+      chatLangPrefix: "Język czatu: ",
+      notDetected: "nie wykryto",
+      hintHtml:
+        "<b>Ctrl + Enter</b> w polu czatu — tłumaczy wiadomość bezpośrednio w polu (bez wysyłania); sprawdź ją i naciśnij Enter.",
+      translationLang: "Język tłumaczenia",
+      service: "Usługa",
+      providerGoogleFree: "Google (bez klucza)",
+      providerGoogleApi: "Google Cloud (klucz)",
+      providerDeepl: "DeepL (klucz)",
+      apiKey: "Klucz API",
+      apiKeyPlaceholder: "Wklej klucz",
+      saved: "Zapisano",
+    },
+    tr: {
+      enableTranslation: "Çeviriyi etkinleştir",
+      autoTranslateOutgoing: "Enter'a basınca mesajlarımı otomatik çevir",
+      myMessagesLang: "Mesajlarımın dili",
+      autoChatLang: "Otomatik (sohbet dili)",
+      uiLang: "Arayüz dili",
+      uiLangAuto: "Otomatik (tarayıcı)",
+      chatLangPrefix: "Sohbet dili: ",
+      notDetected: "algılanmadı",
+      hintHtml:
+        "Sohbet kutusunda <b>Ctrl + Enter</b> — mesajı göndermeden doğrudan alanda çevirir; kontrol edip Enter'a basın.",
+      translationLang: "Çeviri dili",
+      service: "Servis",
+      providerGoogleFree: "Google (anahtarsız)",
+      providerGoogleApi: "Google Cloud (anahtar)",
+      providerDeepl: "DeepL (anahtar)",
+      apiKey: "API anahtarı",
+      apiKeyPlaceholder: "Anahtarı yapıştırın",
+      saved: "Kaydedildi",
+    },
+    zh: {
+      enableTranslation: "启用翻译",
+      autoTranslateOutgoing: "按 Enter 时自动翻译我的消息",
+      myMessagesLang: "我的消息语言",
+      autoChatLang: "自动（聊天语言）",
+      uiLang: "界面语言",
+      uiLangAuto: "自动（浏览器）",
+      chatLangPrefix: "聊天语言：",
+      notDetected: "未检测到",
+      hintHtml:
+        "在聊天输入框中按 <b>Ctrl + Enter</b> — 直接在输入框中翻译消息（不发送）；确认后再按 Enter。",
+      translationLang: "翻译语言",
+      service: "服务",
+      providerGoogleFree: "Google（无需密钥）",
+      providerGoogleApi: "Google Cloud（密钥）",
+      providerDeepl: "DeepL（密钥）",
+      apiKey: "API 密钥",
+      apiKeyPlaceholder: "粘贴密钥",
+      saved: "已保存",
+    },
+    ja: {
+      enableTranslation: "翻訳を有効にする",
+      autoTranslateOutgoing: "Enter キーで自分のメッセージを自動翻訳",
+      myMessagesLang: "自分のメッセージの言語",
+      autoChatLang: "自動（チャットの言語）",
+      uiLang: "表示言語",
+      uiLangAuto: "自動（ブラウザ）",
+      chatLangPrefix: "チャットの言語：",
+      notDetected: "未検出",
+      hintHtml:
+        "チャット入力欄で <b>Ctrl + Enter</b> — 送信せずに入力欄で直接メッセージを翻訳します。確認してから Enter を押してください。",
+      translationLang: "翻訳先の言語",
+      service: "サービス",
+      providerGoogleFree: "Google（キー不要）",
+      providerGoogleApi: "Google Cloud（キー）",
+      providerDeepl: "DeepL（キー）",
+      apiKey: "API キー",
+      apiKeyPlaceholder: "キーを貼り付け",
+      saved: "保存しました",
+    },
+    ko: {
+      enableTranslation: "번역 사용",
+      autoTranslateOutgoing: "Enter로 내 메시지 자동 번역",
+      myMessagesLang: "내 메시지 언어",
+      autoChatLang: "자동 (채팅 언어)",
+      uiLang: "인터페이스 언어",
+      uiLangAuto: "자동 (브라우저)",
+      chatLangPrefix: "채팅 언어: ",
+      notDetected: "감지되지 않음",
+      hintHtml:
+        "채팅 입력란에서 <b>Ctrl + Enter</b> — 보내지 않고 입력란에서 바로 메시지를 번역합니다. 확인 후 Enter를 누르세요.",
+      translationLang: "번역 언어",
+      service: "서비스",
+      providerGoogleFree: "Google (키 없음)",
+      providerGoogleApi: "Google Cloud (키)",
+      providerDeepl: "DeepL (키)",
+      apiKey: "API 키",
+      apiKeyPlaceholder: "키 붙여넣기",
+      saved: "저장됨",
+    },
+  };
+
+  // Преобразует сохранённую настройку в реальный код языка.
+  // "auto" (или пусто) -> язык браузера; неизвестный -> английский.
+  function resolveLang(stored) {
+    if (stored && stored !== "auto" && MESSAGES[stored]) return stored;
+    const nav = (navigator.language || "en").toLowerCase().split("-")[0];
+    return MESSAGES[nav] ? nav : "en";
+  }
+
+  // Возвращает строку по ключу с фолбэком на английский, затем на сам ключ.
+  function t(lang, key) {
+    const dict = MESSAGES[lang] || MESSAGES.en;
+    if (key in dict) return dict[key];
+    if (key in MESSAGES.en) return MESSAGES.en[key];
+    return key;
+  }
+
+  window.TCT_I18N = { MESSAGES, UI_LANGS, resolveLang, t };
+})();

@@ -1,0 +1,4 @@
+{
+  "appName": { "message": "Twitch チャット翻訳" },
+  "appDesc": { "message": "Twitch チャットのメッセージをリアルタイムで翻訳します。" }
+}

@@ -7,7 +7,10 @@ const DEFAULTS = {
   apiKey: "",
   translateOutgoing: true,
   outgoingTarget: "auto",
+  uiLang: "auto", // "auto" = язык браузера, иначе код языка интерфейса
 };
+
+const I18N = window.TCT_I18N;
 
 // Человекочитаемые названия для отображения определённого языка чата.
 const LANG_NAMES = {
@@ -29,6 +32,7 @@ const LANG_NAMES = {
 };
 
 const els = {
+  uiLang: document.getElementById("uiLang"),
   enabled: document.getElementById("enabled"),
   translateOutgoing: document.getElementById("translateOutgoing"),
   outgoingTarget: document.getElementById("outgoingTarget"),
@@ -39,6 +43,32 @@ const els = {
   detected: document.getElementById("detected"),
   status: document.getElementById("status"),
 };
+
+let uiLang = I18N.resolveLang("auto"); // активный язык интерфейса (реальный код)
+let lastDetectedCode = ""; // код определённого языка чата (для перерисовки)
+
+// Заполняем селектор языков интерфейса (после авто-опции из HTML).
+for (const [code, name] of Object.entries(I18N.UI_LANGS)) {
+  const opt = document.createElement("option");
+  opt.value = code;
+  opt.textContent = name;
+  els.uiLang.appendChild(opt);
+}
+
+// Применяет переводы ко всем размеченным элементам попапа.
+function applyI18n() {
+  document.documentElement.lang = uiLang;
+  document.querySelectorAll("[data-i18n]").forEach((el) => {
+    el.textContent = I18N.t(uiLang, el.getAttribute("data-i18n"));
+  });
+  document.querySelectorAll("[data-i18n-html]").forEach((el) => {
+    el.innerHTML = I18N.t(uiLang, el.getAttribute("data-i18n-html"));
+  });
+  document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+    el.placeholder = I18N.t(uiLang, el.getAttribute("data-i18n-placeholder"));
+  });
+  showDetected(lastDetectedCode);
+}
 
 let statusTimer = null;
 function flash(text) {
@@ -53,6 +83,7 @@ function updateKeyVisibility() {
 
 function save() {
   const data = {
+    uiLang: els.uiLang.value,
     enabled: els.enabled.checked,
     translateOutgoing: els.translateOutgoing.checked,
     outgoingTarget: els.outgoingTarget.value,
@@ -60,19 +91,23 @@ function save() {
     provider: els.provider.value,
     apiKey: els.apiKey.value.trim(),
   };
-  chrome.storage.sync.set(data, () => flash("Сохранено"));
+  chrome.storage.sync.set(data, () => flash(I18N.t(uiLang, "saved")));
 }
 
 function showDetected(code) {
+  lastDetectedCode = code || "";
+  const prefix = I18N.t(uiLang, "chatLangPrefix");
   if (code) {
-    els.detected.textContent = "Язык чата: " + (LANG_NAMES[code] || code);
+    els.detected.textContent = prefix + (LANG_NAMES[code] || code);
   } else {
-    els.detected.textContent = "Язык чата: не определён";
+    els.detected.textContent = prefix + I18N.t(uiLang, "notDetected");
   }
 }
 
 // Загрузка текущих значений.
 chrome.storage.sync.get(DEFAULTS, (s) => {
+  els.uiLang.value = s.uiLang;
+  uiLang = I18N.resolveLang(s.uiLang);
   els.enabled.checked = s.enabled;
   els.translateOutgoing.checked = s.translateOutgoing;
   els.outgoingTarget.value = s.outgoingTarget;
@@ -80,6 +115,7 @@ chrome.storage.sync.get(DEFAULTS, (s) => {
   els.provider.value = s.provider;
   els.apiKey.value = s.apiKey || "";
   updateKeyVisibility();
+  applyI18n();
 });
 
 // Определённый язык чата хранится в storage.local (его пишет content script).
@@ -91,6 +127,11 @@ chrome.storage.onChanged.addListener((changes, area) => {
 });
 
 // Сохраняем при любом изменении.
+els.uiLang.addEventListener("change", () => {
+  uiLang = I18N.resolveLang(els.uiLang.value);
+  applyI18n();
+  save();
+});
 els.enabled.addEventListener("change", save);
 els.translateOutgoing.addEventListener("change", save);
 els.outgoingTarget.addEventListener("change", save);

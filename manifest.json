@@ -1,8 +1,9 @@
 {
   "manifest_version": 3,
-  "name": "Twitch Chat Translator",
+  "name": "__MSG_appName__",
   "version": "1.0.0",
-  "description": "Переводит сообщения чата Twitch в реальном времени.",
+  "description": "__MSG_appDesc__",
+  "default_locale": "en",
   "permissions": ["storage"],
   "host_permissions": [
     "https://translate.googleapis.com/*",

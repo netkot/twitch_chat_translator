@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -11,20 +11,27 @@
       <h1>Twitch Chat Translator</h1>
     </header>
 
+    <label class="row">
+      <span data-i18n="uiLang">Interface language</span>
+      <select id="uiLang">
+        <option value="auto" data-i18n="uiLangAuto">Auto (browser)</option>
+      </select>
+    </label>
+
     <label class="row switch-row">
-      <span>Включить перевод</span>
+      <span data-i18n="enableTranslation">Enable translation</span>
       <input type="checkbox" id="enabled" />
     </label>
 
     <label class="row switch-row">
-      <span>Авто-перевод моих сообщений при Enter</span>
+      <span data-i18n="autoTranslateOutgoing">Auto-translate my messages on Enter</span>
       <input type="checkbox" id="translateOutgoing" />
     </label>
 
     <label class="row">
-      <span>Язык моих сообщений</span>
+      <span data-i18n="myMessagesLang">My message language</span>
       <select id="outgoingTarget">
-        <option value="auto">Авто (язык чата)</option>
+        <option value="auto" data-i18n="autoChatLang">Auto (chat language)</option>
         <option value="en">English</option>
         <option value="ru">Русский</option>
         <option value="uk">Українська</option>
@@ -40,15 +47,15 @@
       </select>
     </label>
 
-    <p class="detected" id="detected">Язык чата: не определён</p>
+    <p class="detected" id="detected">Chat language: not detected</p>
 
-    <p class="hint">
-      <b>Ctrl + Enter</b> в поле чата — перевести сообщение прямо в поле (без
-      отправки), затем проверьте и нажмите Enter.
+    <p class="hint" id="hint" data-i18n-html="hintHtml">
+      <b>Ctrl + Enter</b> in the chat box — translate the message right in the
+      field (without sending), then review and press Enter.
     </p>
 
     <label class="row">
-      <span>Язык перевода</span>
+      <span data-i18n="translationLang">Translation language</span>
       <select id="target">
         <option value="ru">Русский</option>
         <option value="en">English</option>
@@ -66,20 +73,21 @@
     </label>
 
     <label class="row">
-      <span>Сервис</span>
+      <span data-i18n="service">Service</span>
       <select id="provider">
-        <option value="google_free">Google (без ключа)</option>
-        <option value="google_api">Google Cloud (ключ)</option>
-        <option value="deepl">DeepL (ключ)</option>
+        <option value="google_free" data-i18n="providerGoogleFree">Google (no key)</option>
+        <option value="google_api" data-i18n="providerGoogleApi">Google Cloud (key)</option>
+        <option value="deepl" data-i18n="providerDeepl">DeepL (key)</option>
       </select>
     </label>
 
     <label class="row column" id="keyRow" hidden>
-      <span>API-ключ</span>
-      <input type="password" id="apiKey" placeholder="Вставьте ключ" />
+      <span data-i18n="apiKey">API key</span>
+      <input type="password" id="apiKey" placeholder="Paste the key" data-i18n-placeholder="apiKeyPlaceholder" />
     </label>
 
     <p class="status" id="status"></p>
   </body>
+  <script src="i18n.js"></script>
   <script src="popup.js"></script>
 </html>

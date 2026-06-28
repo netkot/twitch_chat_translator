@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Privacy Policy — Twitch Chat Translator</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    max-width: 760px; margin: 0 auto; padding: 2rem 1.25rem 4rem; color: #1a1a1a; background: #fff;
+  }
+  @media (prefers-color-scheme: dark) { body { color: #e6e6e6; background: #16181c; } a { color: #a0c4ff; } }
+  h1 { font-size: 1.7rem; margin: 0 0 .25rem; }
+  h2 { font-size: 1.25rem; margin: 2rem 0 .5rem; }
+  .updated { color: #777; font-size: .9rem; margin-bottom: 1.5rem; }
+  hr { border: none; border-top: 1px solid #ccc4; margin: 3rem 0; }
+  code { background: #8881; padding: .1em .35em; border-radius: 4px; font-size: .9em; }
+  a { color: #6741d9; }
+</style>
+</head>
+<body>
+
+<h1>Privacy Policy — Twitch Chat Translator</h1>
+<p class="updated">Last updated: 2026-06-28</p>
+
+<p>Twitch Chat Translator (“the extension”) is a browser extension that translates
+Twitch chat messages in real time. This policy explains what data the extension
+handles and how.</p>
+
+<h2>What the extension does</h2>
+<ul>
+  <li>Reads chat messages displayed on twitch.tv and replaces their text with a translation in place.</li>
+  <li>Optionally translates the messages you type before you send them.</li>
+  <li>Stores your settings (target language, interface language, translation provider, optional API key, last detected chat language) locally in your browser.</li>
+</ul>
+
+<h2>Data we collect</h2>
+<p><strong>None.</strong> The developer does not collect, store, sell, or transmit
+any of your data. The extension has no backend server and no analytics or tracking.</p>
+
+<h2>Data sent to third parties</h2>
+<p>To perform a translation, the text to be translated is sent to the translation
+provider <strong>you choose</strong> in the settings:</p>
+<ul>
+  <li><strong>Google Translate</strong> (<code>translate.googleapis.com</code>) — default, no key required.</li>
+  <li><strong>Google Cloud Translation</strong> (<code>translation.googleapis.com</code>) — requires your own API key.</li>
+  <li><strong>DeepL</strong> (<code>api.deepl.com</code> / <code>api-free.deepl.com</code>) — requires your own API key.</li>
+</ul>
+<p>Only the text being translated is sent. The processing of that text is governed
+by the privacy policy of the provider you select:
+<a href="https://policies.google.com/privacy">Google</a>,
+<a href="https://www.deepl.com/privacy">DeepL</a>.
+The extension does not send your data anywhere else.</p>
+
+<h2>Local storage</h2>
+<p>Your settings and any API key you enter are stored locally in your browser using
+the <code>chrome.storage</code> API. If Chrome sync is enabled, Chrome may sync these
+settings across your devices under your Google account. The developer has no access
+to this data.</p>
+
+<h2>Permissions</h2>
+<ul>
+  <li><code>storage</code> — to save your settings locally.</li>
+  <li>Access to <code>twitch.tv</code> — to read and translate chat messages on the page.</li>
+  <li>Access to the translation provider endpoints listed above — to request translations.</li>
+</ul>
+
+<h2>Remote code</h2>
+<p>The extension does not load or execute remote code. All code ships inside the extension package.</p>
+
+<h2>Children's privacy</h2>
+<p>The extension is not directed to children and does not knowingly collect data from anyone.</p>
+
+<h2>Changes</h2>
+<p>This policy may be updated; the “Last updated” date above reflects the latest version.</p>
+
+<h2>Contact</h2>
+<p>Questions: <a href="mailto:netkot@gmail.com">netkot@gmail.com</a></p>
+
+<hr>
+
+<h1>Политика конфиденциальности — Переводчик чата Twitch</h1>
+<p class="updated">Обновлено: 28.06.2026</p>
+
+<p>Переводчик чата Twitch («расширение») переводит сообщения чата Twitch в реальном
+времени. Документ объясняет, какие данные обрабатываются.</p>
+
+<h2>Что делает расширение</h2>
+<ul>
+  <li>Читает сообщения чата на twitch.tv и заменяет их текст переводом на месте.</li>
+  <li>По желанию переводит сообщения, которые вы вводите, перед отправкой.</li>
+  <li>Хранит ваши настройки (язык перевода, язык интерфейса, провайдер, опциональный API-ключ, последний определённый язык чата) локально в браузере.</li>
+</ul>
+
+<h2>Какие данные мы собираем</h2>
+<p><strong>Никакие.</strong> Разработчик не собирает, не хранит, не продаёт и не
+передаёт ваши данные. У расширения нет собственного сервера, аналитики и трекинга.</p>
+
+<h2>Данные, передаваемые третьим сторонам</h2>
+<p>Для выполнения перевода текст отправляется провайдеру перевода, <strong>которого вы
+выбираете</strong> в настройках:</p>
+<ul>
+  <li><strong>Google Translate</strong> (<code>translate.googleapis.com</code>) — по умолчанию, без ключа.</li>
+  <li><strong>Google Cloud Translation</strong> (<code>translation.googleapis.com</code>) — нужен ваш ключ.</li>
+  <li><strong>DeepL</strong> (<code>api.deepl.com</code> / <code>api-free.deepl.com</code>) — нужен ваш ключ.</li>
+</ul>
+<p>Передаётся только переводимый текст. Его обработка регулируется политикой
+выбранного провайдера:
+<a href="https://policies.google.com/privacy">Google</a>,
+<a href="https://www.deepl.com/privacy">DeepL</a>.
+Больше никуда расширение данные не отправляет.</p>
+
+<h2>Локальное хранение</h2>
+<p>Настройки и введённый API-ключ хранятся локально через <code>chrome.storage</code>.
+Если включена синхронизация Chrome, настройки могут синхронизироваться между вашими
+устройствами в вашем аккаунте Google. Разработчик доступа к этим данным не имеет.</p>
+
+<h2>Разрешения</h2>
+<ul>
+  <li><code>storage</code> — сохранение настроек локально.</li>
+  <li>Доступ к <code>twitch.tv</code> — чтение и перевод сообщений чата на странице.</li>
+  <li>Доступ к эндпоинтам провайдеров перевода — запрос переводов.</li>
+</ul>
+
+<h2>Удалённый код</h2>
+<p>Расширение не загружает и не исполняет удалённый код. Весь код — внутри пакета.</p>
+
+<h2>Дети</h2>
+<p>Расширение не предназначено для детей и не собирает данные о них.</p>
+
+<h2>Изменения</h2>
+<p>Политика может обновляться; дата вверху отражает актуальную версию.</p>
+
+<h2>Контакт</h2>
+<p>Вопросы: <a href="mailto:netkot@gmail.com">netkot@gmail.com</a></p>
+
+</body>
+</html>

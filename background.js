@@ -104,7 +104,7 @@ async function translate(text, target, provider, apiKey) {
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   if (!msg || msg.type !== "translate") return false;
 
-  const target = msg.target || "ru";
+  const target = msg.target || "en";
   const provider = msg.provider || "google_free";
   const apiKey = msg.apiKey || "";
   const text = (msg.text || "").trim();

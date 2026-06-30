@@ -25,7 +25,7 @@ function init() {
 
   const DEFAULTS = {
     enabled: true,
-    target: "ru",
+    target: "en",
     provider: "google_free",
     apiKey: "",
     skipShort: true,
@@ -370,9 +370,11 @@ function init() {
   }
 
   // Язык, в который переводим исходящие: явный выбор или язык чата (auto).
+  // Если язык чата ещё не определён — по умолчанию английский.
   function outgoingTarget() {
     const t = settings.outgoingTarget || "auto";
-    return t === "auto" ? chatLang : t;
+    if (t !== "auto") return t;
+    return chatLang || "en";
   }
 
   function sendMessage(input) {

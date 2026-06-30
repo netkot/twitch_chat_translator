@@ -18,6 +18,45 @@ header h1 {
   color: #bf94ff;
 }
 
+/* Цветовые зоны: «Перевод текста чата» и «Перевод моих сообщений». */
+.zone {
+  margin: 0 0 14px;
+  padding: 10px 12px 4px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  border-left-width: 3px;
+}
+
+.zone--incoming {
+  background: #221c33;
+  border-color: #9147ff;
+}
+
+.zone--outgoing {
+  background: #15302a;
+  border-color: #00c389;
+}
+
+.zone > :last-child {
+  margin-bottom: 8px;
+}
+
+.zone-title {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+.zone--incoming .zone-title {
+  color: #bf94ff;
+}
+
+.zone--outgoing .zone-title {
+  color: #4fe0b5;
+}
+
 .row {
   display: flex;
   align-items: center;
@@ -48,6 +87,18 @@ input[type="password"] {
 
 select {
   min-width: 130px;
+}
+
+/* Сервис и поле API-ключа — одинаковой ширины. */
+#provider,
+#apiKey {
+  width: 150px;
+  min-width: 0;
+  box-sizing: border-box;
+}
+
+#keyRow span {
+  flex: 1;
 }
 
 select:focus,

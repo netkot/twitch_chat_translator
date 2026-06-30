@@ -18,59 +18,69 @@
       </select>
     </label>
 
-    <label class="row switch-row">
-      <span data-i18n="enableTranslation">Enable translation</span>
-      <input type="checkbox" id="enabled" />
-    </label>
+    <!-- Зона 1: перевод входящего текста чата -->
+    <section class="zone zone--incoming">
+      <h2 class="zone-title" data-i18n="sectionIncoming">Chat text translation</h2>
 
-    <label class="row switch-row">
-      <span data-i18n="autoTranslateOutgoing">Auto-translate my messages on Enter</span>
-      <input type="checkbox" id="translateOutgoing" />
-    </label>
+      <label class="row switch-row">
+        <span data-i18n="enableTranslation">Enable translation</span>
+        <input type="checkbox" id="enabled" />
+      </label>
 
-    <label class="row">
-      <span data-i18n="myMessagesLang">My message language</span>
-      <select id="outgoingTarget">
-        <option value="auto" data-i18n="autoChatLang">Auto (chat language)</option>
-        <option value="en">English</option>
-        <option value="ru">Русский</option>
-        <option value="uk">Українська</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="pl">Polski</option>
-        <option value="tr">Türkçe</option>
-        <option value="ja">日本語</option>
-        <option value="ko">한국어</option>
-        <option value="zh">中文</option>
-      </select>
-    </label>
+      <label class="row">
+        <span data-i18n="translationLang">Translation language</span>
+        <select id="target">
+          <option value="ru">Русский</option>
+          <option value="en">English</option>
+          <option value="uk">Українська</option>
+          <option value="es">Español</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="pl">Polski</option>
+          <option value="tr">Türkçe</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="zh">中文</option>
+        </select>
+      </label>
 
-    <p class="detected" id="detected">Chat language: not detected</p>
+      <p class="detected" id="detected">Chat language: not detected</p>
+    </section>
 
-    <p class="hint" id="hint" data-i18n-html="hintHtml">
-      <b>Ctrl + Enter</b> in the chat box — translate the message right in the
-      field (without sending), then review and press Enter.
-    </p>
+    <!-- Зона 2: перевод моих исходящих сообщений -->
+    <section class="zone zone--outgoing">
+      <h2 class="zone-title" data-i18n="sectionOutgoing">My messages translation</h2>
 
-    <label class="row">
-      <span data-i18n="translationLang">Translation language</span>
-      <select id="target">
-        <option value="ru">Русский</option>
-        <option value="en">English</option>
-        <option value="uk">Українська</option>
-        <option value="es">Español</option>
-        <option value="de">Deutsch</option>
-        <option value="fr">Français</option>
-        <option value="pt">Português</option>
-        <option value="pl">Polski</option>
-        <option value="tr">Türkçe</option>
-        <option value="ja">日本語</option>
-        <option value="ko">한국어</option>
-        <option value="zh">中文</option>
-      </select>
-    </label>
+      <label class="row switch-row">
+        <span data-i18n="autoTranslateOutgoing">Auto-translate my messages on Enter</span>
+        <input type="checkbox" id="translateOutgoing" />
+      </label>
+
+      <label class="row">
+        <span data-i18n="myMessagesLang">My message language</span>
+        <select id="outgoingTarget">
+          <option value="auto" data-i18n="autoChatLang">Auto (chat language)</option>
+          <option value="en">English</option>
+          <option value="ru">Русский</option>
+          <option value="uk">Українська</option>
+          <option value="es">Español</option>
+          <option value="de">Deutsch</option>
+          <option value="fr">Français</option>
+          <option value="pt">Português</option>
+          <option value="pl">Polski</option>
+          <option value="tr">Türkçe</option>
+          <option value="ja">日本語</option>
+          <option value="ko">한국어</option>
+          <option value="zh">中文</option>
+        </select>
+      </label>
+
+      <p class="hint" id="hint" data-i18n-html="hintHtml">
+        <b>Ctrl + Enter</b> in the chat box — translate the message right in the
+        field (without sending), then review and press Enter.
+      </p>
+    </section>
 
     <label class="row">
       <span data-i18n="service">Service</span>
@@ -81,7 +91,7 @@
       </select>
     </label>
 
-    <label class="row column" id="keyRow" hidden>
+    <label class="row" id="keyRow" hidden>
       <span data-i18n="apiKey">API key</span>
       <input type="password" id="apiKey" placeholder="Paste the key" data-i18n-placeholder="apiKeyPlaceholder" />
     </label>

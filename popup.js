@@ -2,7 +2,7 @@
 
 const DEFAULTS = {
   enabled: true,
-  target: "ru",
+  target: "en",
   provider: "google_free",
   apiKey: "",
   translateOutgoing: true,
